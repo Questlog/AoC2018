@@ -10,9 +10,9 @@ class ReposeRecord {
             it.substringAfter("[").substringBefore("]")
         }
 
-        var state = State.ShiftChange
-        var guardsById = HashMap<Int, Guard>()
-        var currentGuard : Guard = Guard(0, ArrayList())
+        var state: State
+        val guardsById = HashMap<Int, Guard>()
+        var currentGuard = Guard(0, ArrayList())
         var startSleepTime = 0
 
         for(line in lines){
@@ -35,10 +35,10 @@ class ReposeRecord {
             }
 
             if (state == State.WakesUp) {
-                var stopSleepTime = Regex(":(\\d+)]").find(line)!!.groupValues[1].toInt()
+                val stopSleepTime = Regex(":(\\d+)]").find(line)!!.groupValues[1].toInt()
 
                 for(i in startSleepTime until stopSleepTime){
-                    currentGuard.minutesAsleep.add(i.toInt())
+                    currentGuard.minutesAsleep.add(i)
                 }
             }
         }
